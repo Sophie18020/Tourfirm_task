@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS products(
+id SERIAL PRIMARY KEY NOT NULL,
+name VARCHAR(30) NOT NULL,
+price money NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS clients(
+id SERIAL PRIMARY KEY NOT NULL,
+lastname VARCHAR(20) NOT NULL,
+name VARCHAR(20) NOT NULL,
+surname VARCHAR(20) NOT NULL,
+passport VARCHAR(10) NOT NULL,
+phone VARCHAR(20) NOT NULL,
+address VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Orders(
+id SERIAL PRIMARY KEY NOT NULL,
+client_id INT NOT NULL,
+FOREIGN KEY(client_id) REFERENCES clients(id),
+product_id INT NOT NULL,
+FOREIGN KEY(product_id) REFERENCES products(id),
+pay_date date NOT NULL,
+count INT NOT NULL,
+sum money NOT NULL,
+payment_type VARCHAR(20) NOT NULL,
+isCompleted bool NOT NULL
+);
+
+INSERT INTO clients (lastname, name, surname,passport, phone, address) VALUES ("Иванов", "Иван", "Иванович", "4217491837", "98765432187", "Город, улица, дом");
+
+INSERT INTO products (name, price) VALUES ("Товар 1",700);
+
+INSERT INTO Orders(client_id, product_id, pay_date, count, sum, payment_type, isCompleted) VALUES (1, 1, 23.05.2024, 3, 2100, "Карта", true);
+
